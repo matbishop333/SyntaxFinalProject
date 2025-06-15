@@ -1,4 +1,6 @@
 package hooks;
 
-public class Hooks {
+import utils.CommonMethods;
+
+public class Hooks extends CommonMethods {
 }
