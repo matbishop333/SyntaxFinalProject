@@ -9,22 +9,23 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.IOException;
 import java.time.Duration;
 
 public class CommonMethods extends PageInitializer {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
-    public void openBrowser() {
-        String browserName = ConfigReader.get("browser");
+    public void openBrowser() throws IOException {
+        String browserName= ConfigReader.get("browser");
         switch (browserName) {
-            case "Chrome":
+            case "chrome":
                 driver = new ChromeDriver();
                 break;
-            case "Firefox":
+            case "firefox":
                 driver = new FirefoxDriver();
                 break;
-            case "Edge":
+            case "edge":
                 driver = new EdgeDriver();
                 break;
             default:
@@ -50,8 +51,10 @@ public class CommonMethods extends PageInitializer {
     }
 
     public void waitForElement(WebElement element) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(Constants.EXPLICIT_WAIT));
         wait.until(ExpectedConditions.visibilityOf(element));
     }
+
 
     public boolean isElementDisplayed(WebElement element) {
         try {
