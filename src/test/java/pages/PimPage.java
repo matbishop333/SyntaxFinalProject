@@ -25,6 +25,21 @@ public class PimPage extends CommonMethods {
     @FindBy(id = "btnSave")
     public WebElement saveButton;
 
+    @FindBy(id = "chkLogin")
+    public WebElement createLoginCheckbox;
+
+    @FindBy(id = "user_name")
+    public WebElement usernameField;
+
+    @FindBy(id = "user_password")
+    public WebElement passwordField;
+
+    @FindBy(id = "re_password")
+    public WebElement confirmPasswordField;
+
+    @FindBy(xpath = "//span[@class='helpText']")
+    public WebElement passwordHint;
+
     @FindBy(id="profile-pic")
     public WebElement profilePic;
 
