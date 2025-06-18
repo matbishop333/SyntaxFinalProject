@@ -13,5 +13,17 @@ public class DashboardPage extends CommonMethods {
     @FindBy(tagName = "h1")
     public WebElement dashboardHeader;
 
+    @FindBy(id = "menu_dashboard_index")
+    public WebElement dashboardButton;
 
+    @FindBy(id = "menu_pim_viewPimModule")
+    public WebElement pimButton;
+
+    public void clickDashboardButton() {
+        dashboardButton.click();
+    }
+
+    public void clickPimButton() {
+        pimButton.click();
+    }
 }
