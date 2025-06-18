@@ -6,8 +6,10 @@ import io.cucumber.java.en.Then;
 import org.testng.Assert;
 import utils.CommonMethods;
 import utils.ConfigReader;
+import utils.DBUtility;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 
 public class AddEmployeeSteps extends CommonMethods {
     @Given("the user is logged in with valid credentials")
@@ -47,10 +49,23 @@ public class AddEmployeeSteps extends CommonMethods {
         pimPage.employeeIdField.clear();
         pimPage.employeeIdField.sendKeys(string);
     }
-    @Then("the user will be taken to the employee personal details page and sees the employee id {string}")
+    @And("the user will be taken to the employee personal details page and sees the employee id {string}")
     public void the_user_will_be_taken_to_the_employee_personal_details_page_and_sees_the_employee_id(String string) {
         String actualEmployeeId = pimPage.personalEmployeeIdField.getAttribute("value");
         Assert.assertEquals(actualEmployeeId, string, "Employee ID does not match!");
     }
 
+    @Then("the employee with ID {string} should be present in the database")
+    public void theEmployeeWithIDShouldBePresentInTheDatabase(String string) {
+        try {
+            DBUtility.connectToDB();
+            String query = "SELECT * FROM hs_hr_employees WHERE employee_id = '" + string + "'";
+            ResultSet resultSet = DBUtility.executeQuery(query);
+            Assert.assertTrue(resultSet.next(), "Employee with ID " + string + " not found in the database.");
+            DBUtility.closeConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Assert.fail("Database operation failed: " + e.getMessage());
+        }
+    }
 }
