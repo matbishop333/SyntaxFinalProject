@@ -37,7 +37,7 @@ public class PimPage extends CommonMethods {
     @FindBy(id = "re_password")
     public WebElement confirmPasswordField;
 
-    @FindBy(xpath = "//span[@class='helpText']")
+    @FindBy(xpath = "//div[@class='helpText'][2]")
     public WebElement passwordHint;
 
     @FindBy(id="profile-pic")

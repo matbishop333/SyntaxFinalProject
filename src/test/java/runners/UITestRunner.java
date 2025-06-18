@@ -7,7 +7,7 @@ import io.cucumber.testng.CucumberOptions;
 (
         features = "C:\\Users\\mathe\\IdeaProjects\\SyntaxFinalProject\\src\\test\\resources\\features\\ui",
         glue = {"steps", "hooks"},
-        tags = "@uniquid",
+        tags = "@employeecredentials",
         plugin = {"pretty", "html:target/cucumber-reports.html", "json:target/cucumber.json"},
         monochrome = true,
         dryRun = false
