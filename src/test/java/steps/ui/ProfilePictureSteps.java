@@ -44,7 +44,7 @@ public class ProfilePictureSteps extends CommonMethods {
     @Then("I should see a success message indicating the profile picture has been uploaded successfully")
     public void i_should_see_a_success_message_indicating_the_profile_picture_has_been_uploaded_successfully() {
         WebElement message = essMyInfoPage.successMessage;
-        String text = message.getText(); // capture text instantly
+        String text = message.getText();
 
         try {
             WebElement toast = driver.findElement(By.className("message"));
@@ -56,5 +56,27 @@ public class ProfilePictureSteps extends CommonMethods {
         }
 
 
+    }
+
+    @And("then select a profile picture file that is too large")
+    public void thenSelectAProfilePictureFileThatIsTooLarge() {
+        essMyInfoPage.chooseFileButton.sendKeys(TestDataStorage.invalidProfilePictureFilePath);
+
+
+    }
+
+    @Then("I should see a failure message indicating the profile picture was too large to upload")
+    public void iShouldSeeAFailureMessageIndicatingTheProfilePictureWasTooLargeToUpload() {
+        WebElement message = essMyInfoPage.warningMessage;
+        String text = message.getText();
+
+        try {
+            WebElement toast = driver.findElement(By.className("message"));
+            String toastText = toast.getText();
+            System.out.println("Captured message: " + toastText);
+            Assert.assertTrue(toastText.contains("Failed to Save: File Size Exceeded"));
+        } catch (NoSuchElementException | StaleElementReferenceException e) {
+            Assert.fail("Success message not found or disappeared too quickly.");
+        }
     }
 }
