@@ -13,6 +13,9 @@ public class ESSMyInfoPage extends CommonMethods {
     @FindBy(xpath = "//div[@class='message warning fadable']")
     public WebElement warningMessage;
 
+    @FindBy(xpath = "//div[@class='message success fadable']")
+    public WebElement successMessage;
+
     @FindBy(id = "empPic")
     public WebElement profilePicture;
 
