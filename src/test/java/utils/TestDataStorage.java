@@ -6,4 +6,10 @@ public class TestDataStorage {
 
     public static final String validProfilePictureFilePath = "C:\\Users\\mathe\\IdeaProjects\\SyntaxFinalProject\\src\\test\\resources\\testdata\\good image for project.jpg";
     public static final String invalidProfilePictureFilePath = "C:\\Users\\mathe\\IdeaProjects\\SyntaxFinalProject\\src\\test\\resources\\testdata\\bad image for project.jpg";
+
+    public static String apiUsername;
+    public static String apiPassword;
+    public static String apiEmail;
+    public static String apiToken;
+    public static String apiEmployeeId;
 }
