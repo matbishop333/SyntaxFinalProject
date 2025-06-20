@@ -6,8 +6,10 @@ import io.restassured.specification.RequestSpecification;
 
 public class APIBase {
     public static RequestSpecification prepareRequest() {
-        return RestAssured.given()
-                .baseUri(APIConstants.BASE_URI)
+        RestAssured.baseURI = APIConstants.BASE_URI;
+
+        return RestAssured
+                .given()
                 .contentType("application/json")
                 .accept("application/json");
     }
@@ -18,7 +20,7 @@ public class APIBase {
                 .post(endpoint);
     }
 
-    public static String getToken(String email, String password) {
+    /*public static String getToken(String email, String password) {
         TokenPayload payload = new TokenPayload(email, password);
 
         Response response = prepareRequest()
@@ -27,6 +29,7 @@ public class APIBase {
 
         return response.jsonPath().getString("token");
     }
+    */
 
 
 
