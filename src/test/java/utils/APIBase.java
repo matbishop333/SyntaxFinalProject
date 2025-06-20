@@ -3,6 +3,7 @@ package utils;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import payloads.TokenCreationPayload;
 
 public class APIBase {
     public static RequestSpecification prepareRequest() {
@@ -20,8 +21,8 @@ public class APIBase {
                 .post(endpoint);
     }
 
-    /*public static String getToken(String email, String password) {
-        TokenPayload payload = new TokenPayload(email, password);
+    public static String getToken(String email, String password) {
+        TokenCreationPayload payload = new TokenCreationPayload(email, password);
 
         Response response = prepareRequest()
                 .body(payload)
@@ -29,7 +30,7 @@ public class APIBase {
 
         return response.jsonPath().getString("token");
     }
-    */
+
 
 
 
