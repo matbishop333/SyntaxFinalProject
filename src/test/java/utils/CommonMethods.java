@@ -3,8 +3,10 @@ package utils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -17,22 +19,36 @@ public class CommonMethods extends PageInitializer {
     public static WebDriverWait wait;
 
     public void openBrowser() throws IOException {
-        String browserName= ConfigReader.get("browser");
-        switch (browserName) {
+        String browser = ConfigReader.get("browser").toLowerCase();
+        boolean isHeadless = ConfigReader.get("headless").equalsIgnoreCase("true");
+
+        switch (browser) {
             case "chrome":
-                driver = new ChromeDriver();
+                ChromeOptions chromeOptions = new ChromeOptions();
+                if (isHeadless) {
+                    chromeOptions.addArguments("--headless=new");
+                }
+                chromeOptions.addArguments("--no-sandbox");
+                chromeOptions.addArguments("--disable-dev-shm-usage");
+                chromeOptions.addArguments("--window-size=1920,1080");
+
+                driver = new ChromeDriver(chromeOptions);
                 break;
+
             case "firefox":
-                driver = new FirefoxDriver();
+                FirefoxOptions firefoxOptions = new FirefoxOptions();
+                if (isHeadless) {
+                    firefoxOptions.addArguments("-headless");
+                }
+                driver = new FirefoxDriver(firefoxOptions);
                 break;
-            case "edge":
-                driver = new EdgeDriver();
-                break;
+
             default:
-                throw new RuntimeException("Invalid Browser Name");
+                throw new RuntimeException("Browser is not supported");
         }
+
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Constants.IMPLICIT_WAIT));
         driver.get(ConfigReader.get("url"));
 
     }
